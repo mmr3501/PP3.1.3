@@ -15,33 +15,39 @@ import web.service.UserService;
 @RequestMapping("/")
 public class MainController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public MainController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/user")
     public String printWelcome(ModelMap model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("user", userService.loadUserByUsername(authentication.getName()));
-        return "user";
+        model.addAttribute("user", userService.getUserByName(authentication.getName()));
+        return "bootstrapUser";
     }
 
     @GetMapping("/admin")
     public String hello2(ModelMap model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user", userService.getUserByName(authentication.getName()));
         model.addAttribute("users", userService.getAllUsers());
-        return "admin";
+        return "bootstrapAdmin";
     }
 
     @GetMapping("/adduser")
     public String addUser(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("allRoles", userService.getAllRoles());
-        return "adduser";
+        return "bootstrapAdmin";
     }
 
     @PostMapping("/adduser")
     public String createUser(User user) {
         userService.saveUser(user);
-        return "redirect:/admin";
+        return "redirect:/bootstrapAdmin";
     }
 
     @GetMapping("/edit/{id}")
@@ -54,12 +60,12 @@ public class MainController {
     @PostMapping("/edit")
     public String updateUser(User user) {
         userService.saveUser(user);
-        return "redirect:/admin";
+        return "redirect:/bootstrapAdmin";
     }
 
     @GetMapping("delete/{id}")
     public String deleteUser(@PathVariable("id") Long id){
         userService.removeUserById(id);
-        return "redirect:/admin";
+        return "redirect:/bootstrapAdmin";
     }
 }
