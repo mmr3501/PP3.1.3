@@ -7,8 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import web.model.Role;
 import web.model.User;
 import web.service.UserService;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -33,39 +37,30 @@ public class MainController {
     public String hello2(ModelMap model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("user", userService.getUserByName(authentication.getName()));
+        model.addAttribute("newUser", new User());
         model.addAttribute("users", userService.getAllUsers());
-        return "bootstrapAdmin";
-    }
-
-    @GetMapping("/adduser")
-    public String addUser(Model model) {
-        model.addAttribute("user", new User());
         model.addAttribute("allRoles", userService.getAllRoles());
         return "bootstrapAdmin";
     }
 
-    @PostMapping("/adduser")
-    public String createUser(User user) {
+    @PostMapping("/save")
+    public String createUser(@RequestParam(value="ArrayOfRoles", required = false) String[] checked, User user) {
+        if (checked != null) {
+            user.setRoles(Arrays.stream(checked).map(a -> new Role(a)).collect(Collectors.toSet()));
+        }
         userService.saveUser(user);
-        return "redirect:/bootstrapAdmin";
+        return "redirect:/admin";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editUserForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("allRoles", userService.getAllRoles());
-        return "edit";
-    }
-
-    @PostMapping("/edit")
-    public String updateUser(User user) {
-        userService.saveUser(user);
-        return "redirect:/bootstrapAdmin";
-    }
-
-    @GetMapping("delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id){
+    @GetMapping("/delete")
+    public String deleteUser(long id) {
         userService.removeUserById(id);
-        return "redirect:/bootstrapAdmin";
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/findOne")
+    @ResponseBody
+    public User findOne(Long id) {
+        return userService.getUserById(id);
     }
 }

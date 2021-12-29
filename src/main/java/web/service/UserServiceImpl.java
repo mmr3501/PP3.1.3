@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
 import web.model.Role;
 import web.model.User;
+
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -39,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public List<Role> getAllRoles() {
+    public List <Role> getAllRoles() {
         return dao.getAllRoles();
     }
 
@@ -52,6 +54,7 @@ public class UserServiceImpl implements UserService {
     public Role getUserRole() {
         return dao.getUserRole();
     }
+
 
     @Transactional
     @Override

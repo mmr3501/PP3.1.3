@@ -91,4 +91,5 @@ public class UserDaoImpl implements UserDao {
                 .setParameter("role", "ROLE_USER")
                 .getSingleResult();
     }
+
 }

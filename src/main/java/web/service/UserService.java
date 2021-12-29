@@ -20,7 +20,7 @@ public interface UserService extends UserDetailsService {
 
     User getUserByName(String name);
 
-    List<Role> getAllRoles();
+    List <Role> getAllRoles();
 
     Role getAdminRole();
 

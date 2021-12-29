@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>User`s panel</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="navbar-header text-white row col-6">
+                <h6 class="font-weight-bold" th:text="${user.username}"> </h6>
+                <h6>&nbsp; with roles: &nbsp;</h6>
+                <h6 th:text="${user.roles}"> </h6>
+            </div>
+            <div class="navbar-nav col-6">
+                <a class="text-muted text-right" href="/logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                <ul class="nav flex-column nav-pills">
+                    <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')" class="nav-item">
+                        <a class="nav-link" href="http://localhost:8080/admin">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="http://localhost:8080/user">User</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-10">
+                <div class="page-header">
+                    <h1>
+                        User information-page
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2"> </div>
+            <div class="col-10">
+                <h5> About user </h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2"> </div>
+            <div class="col-10">
+                <table class="table table-hover table-sm">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.roles}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
