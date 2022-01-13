@@ -60,7 +60,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserById(Long id) {
+    public User getUserById(Long id){
         return em.createQuery("FROM User WHERE id =:id", User.class)
                 .setParameter("id", id)
                 .getSingleResult();

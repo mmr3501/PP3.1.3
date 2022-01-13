@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import web.model.Role;
 import web.model.User;
 import web.service.UserService;
-
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -43,24 +41,4 @@ public class MainController {
         return "bootstrapAdmin";
     }
 
-    @PostMapping("/save")
-    public String createUser(@RequestParam(value="ArrayOfRoles", required = false) String[] checked, User user) {
-        if (checked != null) {
-            user.setRoles(Arrays.stream(checked).map(a -> new Role(a)).collect(Collectors.toSet()));
-        }
-        userService.saveUser(user);
-        return "redirect:/admin";
-    }
-
-    @GetMapping("/delete")
-    public String deleteUser(long id) {
-        userService.removeUserById(id);
-        return "redirect:/admin";
-    }
-
-    @GetMapping("/findOne")
-    @ResponseBody
-    public User findOne(Long id) {
-        return userService.getUserById(id);
-    }
 }

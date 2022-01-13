@@ -54,9 +54,9 @@
                 <div class="tabbable" id="tabs-27824">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#usersTable" data-toggle="tab">Users table</a>
+                            <a class="nav-link active" href="#usersTable" data-toggle="tab" id="admin-tab">Users table</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item newUser">
                             <a class="nav-link" href="#newUser" data-toggle="tab">New User</a>
                         </li>
                     </ul>
@@ -80,14 +80,8 @@
                                                 <th>Delete</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr th:each="user : ${users}">
-                                                <td th:text="${user.id}"></td>
-                                                <td th:text="${user.username}"></td>
-                                                <td th:text="${user.roles}"></td>
-                                                <td><a class="btn btn-primary eBtn" th:href="@{findOne/(id=${user.id})}">Edit</a></td>
-                                                <td><a class="btn btn-danger dBtn" th:href="@{findOne/(id=${user.id})}">Delete</a></td>
-                                            </tr>
+                                            <tbody id = "tData">
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -96,7 +90,7 @@
                         </div>
 
                         <div class="myForm">
-                            <form action="#" method="post" th:action="@{/save}">
+                            <form action="#">
                                 <div aria-hidden="true" aria-labelledby="editModalLabel" class="modal fade"
                                      id="editModal" role="dialog"
                                      tabindex="-1">
@@ -123,16 +117,13 @@
                                                 <div class="form-group">
                                                     <h6>Password</h6>
                                                     <label class="col-form-label" for="passwordEdit"></label>
-                                                    <input class="form-control" id="passwordEdit" name="password" type="text" value=""/>
+                                                    <input class="form-control" id="passwordEdit" name="password" type="password" value=""/>
                                                 </div>
                                                 <div>
                                                     <h6>Roles</h6>
                                                     <label for="roles">
-                                                        <select multiple="multiple" id="rolesEdit" name="ArrayOfRoles">
-                                                            <option th:each="role : ${allRoles}"
-                                                                    th:value="${role}"
-                                                                    th:text="${role}">
-                                                            </option>
+                                                        <select multiple="multiple" id="rolesEdit" name="editRoles">
+
                                                         </select>
                                                     </label>
                                                 </div>
@@ -141,7 +132,7 @@
                                                 <button class="btn btn-secondary" data-dismiss="modal"
                                                         type="button">Close
                                                 </button>
-                                                <input class="btn btn-primary" type="submit" value="Edit"/>
+                                                <input class="btn btn-primary" type="submit" value="Edit" id="editRef"/>
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +141,7 @@
                         </div>
 
                         <div class="myDeleteForm">
-                            <form action="#" method="get" th:action="@{/delete}">
+                            <form action="#">
                                 <div aria-hidden="true" aria-labelledby="deleteModalLabel" class="modal fade"
                                      id="deleteModal" role="dialog"
                                      tabindex="-1">
@@ -177,11 +168,8 @@
                                                 <div>
                                                     <h6>Roles</h6>
                                                     <label for="roles">
-                                                        <select multiple="multiple" id="rolesDelete" name="ArrayOfRoles">
-                                                            <option th:each="role : ${allRoles}"
-                                                                    th:value="${role}"
-                                                                    th:text="${role}" readonly>
-                                                            </option>
+                                                        <select multiple="multiple" id="rolesDelete" disabled>
+
                                                         </select>
                                                     </label>
                                                 </div>
@@ -203,26 +191,25 @@
                             <div class="container-fluid text-center border">
                                 <br>
                                 <h6>Username</h6>
-                                <form action="#" th:action="@{/save}" th:object="${newUser}" method="post">
+                                <form action="#">
                                     <label for="username" class="bg-warning"></label>
-                                    <input type="text" th:field="*{username}" id="username" placeholder="Username">
+                                    <input type="text"  id="username" placeholder="Username">
                                     <br><br>
                                     <h6>Password</h6>
                                     <label for="password" class="bg-warning"></label>
-                                    <input type="password" th:field="*{password}" id="password" placeholder="Password">
+                                    <input type="password"  id="password" placeholder="Password">
                                     <br><br>
                                     <h6>Roles</h6>
                                     <label for="roles">
-                                        <select multiple="multiple" id="roles" th:field="*{roles}">
-                                            <option th:each="role : ${allRoles}"
-                                                    th:value="${role}"
-                                                    th:text="${role}">
+                                        <select multiple="multiple" id="roles" >
+                                            <option>
+
                                             </option>
                                         </select>
                                     </label>
                                     <br><br>
                                     <div class="col-2 offset-5">
-                                        <input class="btn btn-success btn-block" type="submit" value="Add new user">
+                                        <input class="btn btn-success btn-block" type="submit" value="Add new user" id="addNewUserButton">
                                         <br><br>
                                     </div>
                                 </form>
