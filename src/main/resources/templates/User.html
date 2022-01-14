@@ -71,27 +71,6 @@
 
                     </tbody>
                 </table>
-                <script>
-                    fetch("/api/users/me").then(
-                        res=>{
-                            res.json().then(
-                                data=>{
-                                    let temp = "";
-
-                                    data.forEach((user) => {
-                                        temp += "<tr>";
-                                        temp += "<td>" + user.id + "</td>";
-                                        temp += "<td>" + user.username + "</td>";
-                                        temp += "<td>" + user.roles.map(role => role.role) + "</td>";
-                                        temp += "</tr>";
-                                    })
-
-                                    document.getElementById("uuData").innerHTML = temp;
-                                }
-                            )
-                        }
-                    )
-                </script>
             </div>
         </div>
     </div>

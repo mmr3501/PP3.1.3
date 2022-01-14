@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    let roleList = ["ROLE_ADMIN", "ROLE_USER"];
+    const roleList = ["ROLE_ADMIN", "ROLE_USER"];
 
     getAllUsers();
 
