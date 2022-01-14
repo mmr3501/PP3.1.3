@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
 import web.model.Role;
 import web.model.User;
-
-import java.util.Arrays;
 import java.util.List;
 
 @Component

@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     function getAllUsers() {
 
-        $.getJSON("/findAll", function (data) {
+        $.getJSON("http://localhost:8080/api/users", function (data) {
 
             let rows = '';
 
@@ -16,7 +16,7 @@ $(document).ready(function () {
             $('#tData').append(rows);
 
             $.ajax({
-                url: '/allRoles',
+                url: '/api/users/roles',
                 method: 'GET',
                 dataType: 'json',
                 success: function (roles) {
@@ -29,7 +29,7 @@ $(document).ready(function () {
     $(document).on('click', '.edit-btn', function () {
         const user_id = $(this).attr('data-id');
         $.ajax({
-            url: '/findOne/' + user_id,
+            url: '/api/users/' + user_id,
             method: 'GET',
             dataType: 'json',
             success: function (user) {
@@ -56,7 +56,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: '/edit/' + userEditId,
+            url: '/api/users/' + userEditId,
             method: 'PUT',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -74,7 +74,7 @@ $(document).ready(function () {
         let user_id = $(this).attr('data-id');
 
         $.ajax({
-            url: '/findOne/' + user_id,
+            url: '/api/users/' + user_id,
             method: 'GET',
             dataType: 'json',
             success: function (user) {
@@ -93,7 +93,7 @@ $(document).ready(function () {
         let userId = $('#idDelete').val();
 
         $.ajax({
-            url: '/delete/' + userId,
+            url: '/api/users/' + userId,
             method: 'DELETE',
             success: function () {
                 $('#' + userId).remove();
@@ -154,7 +154,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: '/save',
+            url: '/api/users',
             method: 'POST',
             dataType: 'json',
             data: JSON.stringify(newUser),
