@@ -14,24 +14,13 @@ import web.service.UserService;
 @RequestMapping("/")
 public class MainController {
 
-    private final UserService userService;
-
-    @Autowired
-    public MainController(UserService userService) {
-        this.userService = userService;
-    }
-
     @GetMapping("/user")
-    public String printWelcome(ModelMap model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("user", userService.getUserByName(authentication.getName()));
+    public String printWelcome() {
         return "bootstrapUser";
     }
 
     @GetMapping("/admin")
-    public String hello2(ModelMap model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("user", userService.getUserByName(authentication.getName()));
+    public String hello2() {
         return "bootstrapAdmin";
     }
 

@@ -2,12 +2,9 @@ package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import web.model.Role;
 import web.model.User;
 import web.service.UserService;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -53,17 +50,4 @@ public class RestMainController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/users/roles")
-    public ResponseEntity<List<Role>> allRoles() {
-        List <Role> allRoles = userService.getAllRoles();
-        return ResponseEntity.ok(allRoles);
-    }
-
-    @GetMapping("/users/me")
-    public ResponseEntity<List<User>> me() {
-        List <User> list = new ArrayList<>();
-        User me = userService.getUserByName(SecurityContextHolder.getContext().getAuthentication().getName());
-        list.add(me);
-        return ResponseEntity.ok(list);
-    }
 }

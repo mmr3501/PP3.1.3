@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
 <head>
     <meta charset="UTF-8">
     <!-- Bootstrap CSS -->
@@ -15,9 +15,9 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <div class="navbar-header text-white row col-6">
-            <h6 class="font-weight-bold" th:text="${user.username}"> </h6>
+            <h6 class="font-weight-bold" sec:authentication="name"> </h6>
             <h6>&nbsp; with roles: &nbsp;</h6>
-            <h6 th:text="${user.roles}"> </h6>
+            <h6 sec:authentication="principal.authorities"> </h6>
         </div>
         <div class="navbar-nav col-6">
             <a class="text-muted text-right" href="/logout">Logout</a>

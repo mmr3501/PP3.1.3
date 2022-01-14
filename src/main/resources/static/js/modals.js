@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    let roleList = [];
+    let roleList = ["ROLE_ADMIN", "ROLE_USER"];
 
     getAllUsers();
 
@@ -15,14 +15,6 @@ $(document).ready(function () {
             });
             $('#tData').append(rows);
 
-            $.ajax({
-                url: '/api/users/roles',
-                method: 'GET',
-                dataType: 'json',
-                success: function (roles) {
-                    roleList = roles;
-                }
-            });
         });
     }
 
@@ -38,8 +30,8 @@ $(document).ready(function () {
                 $('#passwordEdit').val(user.password);
                 $('#rolesEdit').empty();
                 roleList.map(role => {
-                    $('#rolesEdit').append('<option id="' + role.id + '" ' + ' name="' + role.role + '" >' +
-                        role.role + '</option>')
+                    $('#rolesEdit').append('<option name="' + role + '" >' +
+                        role + '</option>')
                 })
             }
         });
@@ -82,7 +74,7 @@ $(document).ready(function () {
                 $('#usernameDelete').empty().val(user.username);
                 $('#rolesDelete').empty();
                 roleList.map(role => {
-                    $('#rolesDelete').append('<option>' + role.role + '</option>');
+                    $('#rolesDelete').append('<option>' + role + '</option>');
                 })
             }
         });
@@ -140,8 +132,8 @@ $(document).ready(function () {
         $('#password').empty().val('')
         $('#roles').empty().val('')
         roleList.map(role => {
-            $('#roles').append('<option id="' + role.id + '" role="' + role.role + '">' +
-                role.role + '</option>')
+            $('#roles').append('<option role="' + role + '">' +
+                role + '</option>')
         });
 
     })
