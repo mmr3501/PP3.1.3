@@ -27,7 +27,7 @@ $(document).ready(function () {
             success: function (user) {
                 $('#idEdit').val(user.id);
                 $('#usernameEdit').val(user.username);
-                $('#passwordEdit').val(user.password);
+                $('#passwordEdit').val();
                 $('#rolesEdit').empty();
                 roleList.map(role => {
                     $('#rolesEdit').append('<option name="' + role + '" >' +
